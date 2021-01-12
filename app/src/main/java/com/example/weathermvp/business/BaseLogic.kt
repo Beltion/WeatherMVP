@@ -7,4 +7,6 @@ interface BasePresenter{
 interface BaseVIew{
     fun initViews()
     fun initLogicItem()
+    fun showContent()
+    fun hideContent()
 }
