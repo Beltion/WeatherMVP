@@ -1,7 +1,7 @@
 package com.example.weathermvp.business
 
 interface BasePresenter{
-    fun inCreateView()
+    fun onCreateView()
 }
 
 interface BaseVIew{
