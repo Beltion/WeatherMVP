@@ -3,5 +3,7 @@
 
 <!--    AddCityPresenter str    -->
     <string name="input_city_name">Ввведите название города</string>
+    <string name="cancel">Отмена</string>
+    <string name="find">Найти</string>
 
 </resources>

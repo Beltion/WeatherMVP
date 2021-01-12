@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/content_first_city"
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="10dp">
+
+        <EditText
+            android:id="@+id/city_et_first_city"
+            android:autofillHints="Название города"
+            android:layout_width="300dp"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <Button
+            android:id="@+id/get_city_btn_first_city"
+            android:layout_width="300dp"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintTop_toBottomOf="@+id/city_et_first_city"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:text="@string/find"/>
+
+        <Button
+            android:id="@+id/cancel_city_btn_first_city"
+            android:layout_width="300dp"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintTop_toBottomOf="@+id/get_city_btn_first_city"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:text="@string/cancel"
+            android:visibility="invisible"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include layout="@layout/progressbar"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
