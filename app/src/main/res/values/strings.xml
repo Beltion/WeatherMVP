@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">WeatherMVP</string>
+
+<!--    AddCityPresenter str    -->
+    <string name="input_city_name">Ввведите название города</string>
+
 </resources>
