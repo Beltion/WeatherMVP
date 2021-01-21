@@ -62,6 +62,9 @@ class AddCityActivity :
 
     override fun initLogicItem() {
         presenter.onCreateView()
+        getCityBtn.setOnClickListener {
+            presenter.onBtnClick()
+        }
     }
 
     override fun showContent() {

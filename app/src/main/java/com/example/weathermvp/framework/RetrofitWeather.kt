@@ -13,7 +13,7 @@ interface WeatherAPI{
         @Query("q") city: String,
         @Query("lang") lang: String = "ru",
         @Query("appid") key: String = "51d4575d9c8e6d6decb5854c1db07ec7"
-    ): Response<DayWeather>
+    ): DayWeather
 
     object RetrofitClient{
         private var retrofit: Retrofit? = null
