@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.weathermvp.R
 import com.example.weathermvp.business.AddCityView
+import com.example.weathermvp.framework.room.CityDAO
+import com.example.weathermvp.framework.room.CityRoomDB
 
 class AddCityActivity :
         AppCompatActivity(),
@@ -47,6 +49,9 @@ class AddCityActivity :
     override fun startNewActivity() {
         TODO("Not yet implemented")
     }
+
+    override fun getRoomDbDao(): CityDAO
+            = CityRoomDB.getDatabase(this).getCityDao()
 
     override fun initViews() {
         content = findViewById(R.id.content_add_city)

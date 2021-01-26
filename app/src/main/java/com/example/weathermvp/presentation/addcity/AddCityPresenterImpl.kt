@@ -34,6 +34,7 @@ class AddCityPresenterImpl : AddCityPresenter {
                         Log.d(TAG, "Get city:$city")
                         val dayWeather: DayWeather = model.getWeather(city)
                         Log.d(TAG, "Mess after coroutines: $dayWeather")
+                        
                     }
                 } catch (e: Exception){
                     e.printStackTrace()
