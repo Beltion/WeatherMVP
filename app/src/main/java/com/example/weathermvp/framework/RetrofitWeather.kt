@@ -12,6 +12,7 @@ interface WeatherAPI{
     suspend fun getWeather(
         @Query("q") city: String,
         @Query("lang") lang: String = "ru",
+        @Query("units") units: String = "metric",   //  Temperature in Celsius
         @Query("appid") key: String = "51d4575d9c8e6d6decb5854c1db07ec7"
     ): DayWeather
 

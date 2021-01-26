@@ -28,11 +28,15 @@ class AddCityPresenterImpl : AddCityPresenter {
             val city = v.getCityName()
 
             if(city.isNotBlank() && city.isNotEmpty()){
-
-                scope.launch {
-                    Log.d(TAG, "Get city:$city")
-                    val dayWeather: DayWeather = getWeather(city)
-                    Log.d(TAG, "Mess after coroutines: $dayWeather")
+                v.hideContent()
+                try{
+                    scope.launch {
+                        Log.d(TAG, "Get city:$city")
+                        val dayWeather: DayWeather = model.getWeather(city)
+                        Log.d(TAG, "Mess after coroutines: $dayWeather")
+                    }
+                } catch (e: Exception){
+                    e.printStackTrace()
                 }
 
             } else {
@@ -42,10 +46,6 @@ class AddCityPresenterImpl : AddCityPresenter {
             }
         } ?: Log.d(TAG, "View null")
 
-    }
-
-    private suspend fun getWeather(city: String): DayWeather{
-        return model.getWeather(city)
     }
 
     override fun onCreateView() {

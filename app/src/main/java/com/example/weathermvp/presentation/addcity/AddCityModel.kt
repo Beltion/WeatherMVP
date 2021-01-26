@@ -13,7 +13,7 @@ class AddCityModel {
     private val TAG = AddCityModel::class.simpleName
 
     suspend fun getWeather(city:String): DayWeather{
-        val dayWeather: DayWeather = withContext(scope.coroutineContext) { RepositoryDayWeather.getWeather(city) }
+        val dayWeather: DayWeather =  RepositoryDayWeather.getWeather(city)
         Log.d(TAG, dayWeather.toString())
         return dayWeather
     }
