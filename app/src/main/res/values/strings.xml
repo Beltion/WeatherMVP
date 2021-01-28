@@ -5,5 +5,13 @@
     <string name="input_city_name">Ввведите название города</string>
     <string name="cancel">Отмена</string>
     <string name="find">Найти</string>
+    <string name="not_load">Неудалось загрузить погоду</string>
+    <string name="no_ethernet">Нет доступа к интернет</string>
+
+<!--    Http error user answers-->
+    <string name="http404">Заданный город не найден</string>
+    <string name="http408">Истекло время ожидания запроса, попробуйте его повторить </string>
+    <string name="http500">Заданный город не найден</string>
+    <string name="http503">По техническим причинам сервер сейчас недоступен. Приносим свои извинения</string>
 
 </resources>
