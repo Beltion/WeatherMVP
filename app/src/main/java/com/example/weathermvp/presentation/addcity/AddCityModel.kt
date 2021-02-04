@@ -10,8 +10,6 @@ import java.lang.reflect.Type
 
 class AddCityModel {
 
-    private val TAG = AddCityModel::class.simpleName
-
     suspend fun getWeather(city:String): DayWeatherApiResultWrapper<Type>{
         return DayWeatherRepository.getWeather(city)
     }
@@ -22,5 +20,6 @@ class AddCityModel {
         } catch (e: Exception){
             e.printStackTrace()
         }
+
     }
 }

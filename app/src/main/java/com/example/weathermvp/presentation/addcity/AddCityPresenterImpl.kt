@@ -42,15 +42,16 @@ class AddCityPresenterImpl : AddCityPresenter {
 
                         when(dayWeather){
                             is DayWeatherApiResultWrapper.Success -> {
-                                Log.d(TAG, "Good request: ${dayWeather.value.name}")
+                                Log.d(TAG, "Good request $city: ${dayWeather.value.name}")
+                                startSaveCity(dayWeather.value)
                             }
                             is DayWeatherApiResultWrapper.NetworkError -> {
-                                Log.e(TAG, "Network error")
+                                Log.e(TAG, "Network error on get $city")
                                 v.showContent()
                                 v.showToast(v.getStringFromID(R.string.no_ethernet))
                             }
                             is DayWeatherApiResultWrapper.Error -> {
-                                Log.e(TAG, "Code: ${dayWeather.code} Error: ${dayWeather.mess}")
+                                Log.e(TAG, "Get $city problem -> Code: ${dayWeather.code} Error: ${dayWeather.mess}")
                                 v.showContent()
                                 onHttpError(dayWeather.code)
 
@@ -68,7 +69,7 @@ class AddCityPresenterImpl : AddCityPresenter {
                         v.getStringFromID(R.string.input_city_name)
                 )
             }
-        } ?: Log.d(TAG, "View null")
+        } ?: Log.e(TAG, "View null")
 
     }
 
@@ -91,8 +92,7 @@ class AddCityPresenterImpl : AddCityPresenter {
                 val dao = v.getRoomDbDao()
                 scopeMain.launch {
                     withContext(scopeIO.coroutineContext){model.saveCity(city, dao)}
-                    
-//                    TODO start CityListActivity
+                    v.startCityListActivity()
                 }
             } ?: v.showToast(v.getStringFromID(R.string.not_load))
         }

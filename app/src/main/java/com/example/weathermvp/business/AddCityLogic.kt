@@ -14,6 +14,6 @@ interface AddCityView : BaseVIew {
     fun getCityName() : String
     fun getStringFromID(stringID: Int) : String
     fun showToast(str: String)
-    fun startNewActivity()
+    fun startCityListActivity()
     fun getRoomDbDao(): CityDAO
 }

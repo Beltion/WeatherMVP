@@ -1,29 +1,29 @@
-package com.example.weathermvp.presentation.addcity
+package com.example.weathermvp.presentation.citylist
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.RecyclerView
 import com.example.weathermvp.R
-import com.example.weathermvp.business.AddCityView
+import com.example.weathermvp.business.CityListView
 import com.example.weathermvp.framework.room.CityDAO
 import com.example.weathermvp.framework.room.CityRoomDB
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class AddCityActivity :
-        AppCompatActivity(),
-        AddCityView{
+class CityListActivity:
+        CityListView,
+        AppCompatActivity()
+{
 
     private lateinit var content: ConstraintLayout
     private lateinit var progress: ProgressBar
-    private lateinit var cityName: EditText
-    private lateinit var getCityBtn: Button
-    private lateinit var cancelAdd: Button
+    private lateinit var rvDayWeather: RecyclerView
+    private lateinit var fabCallAddCity: FloatingActionButton
 
-    private lateinit var presenter: AddCityPresenterImpl
+    private lateinit var presenter: CityListPresenterImpl
 
     override fun onStart() {
         super.onStart()
@@ -32,12 +32,9 @@ class AddCityActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.add_city)
         initViews()
+        setContentView(R.layout.city_list)
     }
-
-    override fun getCityName(): String
-            = cityName.text.toString()
 
     override fun getStringFromID(stringID: Int): String
             = getString(stringID)
@@ -46,7 +43,7 @@ class AddCityActivity :
         Toast.makeText(applicationContext, str, Toast.LENGTH_SHORT).show()
     }
 
-    override fun startCityListActivity() {
+    override fun startForecastActivity() {
         TODO("Not yet implemented")
     }
 
@@ -54,22 +51,16 @@ class AddCityActivity :
             = CityRoomDB.getDatabase(this).getCityDao()
 
     override fun initViews() {
-        content = findViewById(R.id.content_add_city)
+        content = findViewById(R.id.content_city_list)
         progress = findViewById(R.id.progressbar)
 
-        cityName = findViewById(R.id.city_et_add_city)
-        getCityBtn = findViewById(R.id.get_city_btn_add_city)
-        cancelAdd = findViewById(R.id.cancel_city_btn_add_city)
-
-        presenter = AddCityPresenterImpl()
-        presenter.initV(this)
+        rvDayWeather = findViewById(R.id.rv_city_list)
+        fabCallAddCity = findViewById(R.id.fab_city_list)
     }
 
     override fun initLogicItem() {
-        presenter.onCreateView()
-        getCityBtn.setOnClickListener {
-            presenter.onBtnClick()
-        }
+        presenter = CityListPresenterImpl()
+        presenter.initV(this)
     }
 
     override fun showContent() {
