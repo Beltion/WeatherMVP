@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.weathermvp.R
 import com.example.weathermvp.business.AddCityPresenter
 import com.example.weathermvp.business.AddCityView
+import com.example.weathermvp.business.HttpErrorStrCoder
 import com.example.weathermvp.data.entities.DayWeather
 import com.example.weathermvp.data.entities.DayWeatherApiResultWrapper
 import com.example.weathermvp.data.mapper.DayWeatherMapper
@@ -53,8 +54,9 @@ class AddCityPresenterImpl : AddCityPresenter {
                             is DayWeatherApiResultWrapper.Error -> {
                                 Log.e(TAG, "Get $city problem -> Code: ${dayWeather.code} Error: ${dayWeather.mess}")
                                 v.showContent()
-                                onHttpError(dayWeather.code)
-
+                                v.showToast(
+                                        v.getStringFromID(HttpErrorStrCoder().getHttpErrorStrCode(dayWeather.code))
+                                )
                             }
                         }
                     }
@@ -69,18 +71,6 @@ class AddCityPresenterImpl : AddCityPresenter {
             }
         } ?: Log.e(TAG, "View null")
 
-    }
-
-    private fun onHttpError(code: Int?) {
-        view?.get()?.let{ v->
-            when(code){
-                404 -> v.showToast(v.getStringFromID(R.string.http404))
-                408 -> v.showToast(v.getStringFromID(R.string.http408))
-                500 -> v.showToast(v.getStringFromID(R.string.http500))
-                503 -> v.showToast(v.getStringFromID(R.string.http503))
-                else -> v.showToast(v.getStringFromID(R.string.not_load))
-            }
-        }
     }
 
     private fun startSaveCity(dayWeather: DayWeather?) {
