@@ -58,8 +58,8 @@ class CityListRvAdapter(
         val temp = "${weathers[position].main.temp} ℃"
         val pressure = "давление ${weathers[position].main.pressure}"
         val humidity = "влажность ${weathers[position].main.humidity}"
-        val windSpeed = "скорость ветра ${weathers[position].wind}"
-        val clouds = "облачность ${weathers[position].clouds}"
+        val windSpeed = "скорость ветра ${weathers[position].wind.speed}"
+        val clouds = "облачность ${weathers[position].clouds.all}"
 
         holder.name.text = name
         holder.desc.text = desc
