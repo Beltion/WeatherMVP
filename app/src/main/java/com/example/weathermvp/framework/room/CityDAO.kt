@@ -8,9 +8,9 @@ interface CityDAO {
     @Query("SELECT * FROM cities")
     suspend fun getCities(): List<City>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(city: City)
 
-    @Delete
-    suspend fun delete(city: City)
+    @Query("DELETE FROM cities WHERE city=:city")
+    suspend fun delete(city: String)
 }
