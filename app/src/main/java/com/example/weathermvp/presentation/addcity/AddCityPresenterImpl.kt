@@ -57,8 +57,6 @@ class AddCityPresenterImpl : AddCityPresenter {
 
                             }
                         }
-
-//                        startSaveCity(dayWeather)
                     }
                 } catch (e: Exception){
                     e.printStackTrace()

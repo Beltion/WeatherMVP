@@ -6,15 +6,19 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weathermvp.R
 import com.example.weathermvp.business.CityListView
+import com.example.weathermvp.data.entities.DayWeather
 import com.example.weathermvp.framework.room.CityDAO
 import com.example.weathermvp.framework.room.CityRoomDB
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.util.ArrayList
 
 class CityListActivity:
         CityListView,
+        CityListRvAdapter.OnCityListClickListener,
         AppCompatActivity()
 {
 
@@ -32,8 +36,9 @@ class CityListActivity:
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initViews()
         setContentView(R.layout.city_list)
+        initViews()
+
     }
 
     override fun getStringFromID(stringID: Int): String
@@ -50,17 +55,25 @@ class CityListActivity:
     override fun getRoomDbDao(): CityDAO
             = CityRoomDB.getDatabase(this).getCityDao()
 
+    override fun initWeathersList(citiesWeather: ArrayList<DayWeather>) {
+        val adapter =CityListRvAdapter(citiesWeather, this)
+        rvDayWeather.adapter = adapter
+    }
+
     override fun initViews() {
         content = findViewById(R.id.content_city_list)
         progress = findViewById(R.id.progressbar)
 
         rvDayWeather = findViewById(R.id.rv_city_list)
+        rvDayWeather.layoutManager = LinearLayoutManager(applicationContext, RecyclerView.VERTICAL, false)
+
         fabCallAddCity = findViewById(R.id.fab_city_list)
     }
 
     override fun initLogicItem() {
         presenter = CityListPresenterImpl()
         presenter.initV(this)
+        presenter.onCreateView()
     }
 
     override fun showContent() {
@@ -71,5 +84,13 @@ class CityListActivity:
     override fun hideContent() {
         content.visibility = View.INVISIBLE
         progress.visibility = View.VISIBLE
+    }
+
+    override fun onClick(cityName: String) {
+        presenter.onItemClick(cityName)
+    }
+
+    override fun onLongCLick(cityName: String) {
+        presenter.onItemLongClick(cityName)
     }
 }

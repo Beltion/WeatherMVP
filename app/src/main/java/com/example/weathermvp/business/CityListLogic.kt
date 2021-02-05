@@ -1,7 +1,8 @@
 package com.example.weathermvp.business
 
-import com.example.weathermvp.framework.room.City
+import com.example.weathermvp.data.entities.DayWeather
 import com.example.weathermvp.framework.room.CityDAO
+import java.util.ArrayList
 
 
 interface CityListPresenter : BasePresenter {
@@ -15,4 +16,5 @@ interface CityListView : BaseVIew {
     fun showToast(str: String)
     fun startForecastActivity()
     fun getRoomDbDao(): CityDAO
+    fun initWeathersList(citiesWeather: ArrayList<DayWeather>)
 }

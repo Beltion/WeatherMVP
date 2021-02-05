@@ -11,5 +11,5 @@ class CityRoomRepository(private val cityDAO: CityDAO) {
 
     suspend fun getAllCities() = cityDAO.getCities()
 
-    suspend fun deleteCity(city: City) = cityDAO.delete(city)
+    suspend fun deleteCity(city: String) = cityDAO.delete(city)
 }

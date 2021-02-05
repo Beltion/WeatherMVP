@@ -1,5 +1,6 @@
 package com.example.weathermvp.presentation.addcity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -12,6 +13,7 @@ import com.example.weathermvp.R
 import com.example.weathermvp.business.AddCityView
 import com.example.weathermvp.framework.room.CityDAO
 import com.example.weathermvp.framework.room.CityRoomDB
+import com.example.weathermvp.presentation.citylist.CityListActivity
 
 class AddCityActivity :
         AppCompatActivity(),
@@ -47,7 +49,8 @@ class AddCityActivity :
     }
 
     override fun startCityListActivity() {
-        TODO("Not yet implemented")
+        val intent = Intent(this, CityListActivity::class.java)
+        startActivity(intent)
     }
 
     override fun getRoomDbDao(): CityDAO
