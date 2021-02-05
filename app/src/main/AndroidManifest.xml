@@ -15,14 +15,14 @@
 
         <activity android:name=".presentation.addcity.AddCityActivity">
             <intent-filter>
-                ]<action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                ]<action android:name="android.intent.action.INSERT"/>
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
         <activity android:name=".presentation.citylist.CityListActivity">
             <intent-filter>
-                ]<action android:name="android.intent.action.INSERT"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                ]<action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 

@@ -15,6 +15,7 @@ interface CityListView : BaseVIew {
     fun getStringFromID(stringID: Int) : String
     fun showToast(str: String)
     fun startForecastActivity()
+    fun startAddCityActivity()
     fun getRoomDbDao(): CityDAO
     fun initWeathersList(citiesWeather: ArrayList<DayWeather>)
 }

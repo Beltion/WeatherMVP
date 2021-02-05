@@ -1,8 +1,11 @@
 package com.example.weathermvp.presentation.citylist
 
 import android.util.Log
+import com.example.weathermvp.R
 import com.example.weathermvp.business.CityListPresenter
 import com.example.weathermvp.business.CityListView
+import com.example.weathermvp.data.entities.DayWeather
+import com.example.weathermvp.data.entities.DayWeatherApiResultWrapper
 import kotlinx.coroutines.*
 import java.lang.ref.WeakReference
 
@@ -48,6 +51,47 @@ class CityListPresenterImpl : CityListPresenter {
                     Log.d(TAG, it.city)
                 }
 
+                if (cities.size > 0){
+                    val citiesWeatherResult = withContext(scopeIO.coroutineContext){
+                        model.getCitiesWeather(cities)
+                    }
+                    Log.d(TAG, "After load weathers")
+                    val citiesWeather = ArrayList<DayWeather>()
+
+//                    I used this flag for check error in load cities weather
+//                    and if error was I check load something or all requests was with error
+                    var somethingWrong = false
+                    var somethingSuccess = false
+
+                    citiesWeatherResult.forEach {
+                        when(it){
+                            is DayWeatherApiResultWrapper.Success -> {
+                                somethingSuccess = true
+                                citiesWeather.add(it.value)
+                            }
+                            is DayWeatherApiResultWrapper.Error -> {
+                                somethingWrong = true
+                            }
+                            is DayWeatherApiResultWrapper.NetworkError -> {
+                                somethingWrong = true
+                            }
+                        }
+                    }
+//                    It's not good idea
+//                    First of all need show all message at all case, but not one message at all case
+//                    And must be more beautiful way to do that, but for now I don't know how...
+                    if (somethingSuccess){
+                        if(somethingWrong){
+                            v.showToast(v.getStringFromID(R.string.not_load))
+                        }
+                        v.initWeathersList(citiesWeather)
+                    } else {
+                        v.showToast(v.getStringFromID(R.string.not_load))
+                    }
+                }else{
+                    v.startAddCityActivity()
+                }
+                Log.d(TAG, "Before show content")
                 v.showContent()
             }
         }
