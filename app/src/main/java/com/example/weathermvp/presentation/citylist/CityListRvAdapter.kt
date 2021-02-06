@@ -31,9 +31,9 @@ class CityListRvAdapter(
             }
         }
 
-        fun onLongClick(cityName: String, listener: OnCityListClickListener){
+        fun onLongClick(cityName: String, position: Int, listener: OnCityListClickListener){
             itemView.setOnLongClickListener{
-                listener.onLongCLick(cityName)
+                listener.onLongCLick(cityName, position)
                 true
             }
         }
@@ -41,7 +41,7 @@ class CityListRvAdapter(
 
     interface OnCityListClickListener{
         fun onClick(cityName: String)
-        fun onLongCLick(cityName: String)
+        fun onLongCLick(cityName: String, position: Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CityListVH {
@@ -75,9 +75,18 @@ class CityListRvAdapter(
                 .into(holder.icon)
 
         holder.onClick(weathers[position].name, clickListener)
-        holder.onLongClick(weathers[position].name, clickListener)
+        holder.onLongClick(weathers[position].name, position, clickListener)
     }
 
     override fun getItemCount(): Int = weathers.size
 
+    fun removeItem(position: Int){
+        weathers.removeAt(position)
+        notifyItemRangeRemoved(position, 1)
+    }
+
+    fun addItem(weather: DayWeather){
+        weathers.add(weather)
+        notifyItemInserted(itemCount)
+    }
 }
