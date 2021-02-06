@@ -67,6 +67,14 @@ class CityListActivity:
         rvDayWeather.adapter = adapter
     }
 
+    override fun addRvDayWeatherItem(weather: DayWeather) {
+        (rvDayWeather.adapter as CityListRvAdapter).addItem(weather)
+    }
+
+    override fun removeRvDayWeatherItem(position: Int) {
+        (rvDayWeather.adapter as CityListRvAdapter).removeItem(position)
+    }
+
     override fun initViews() {
         content = findViewById(R.id.content_city_list)
         progress = findViewById(R.id.progressbar)
@@ -97,7 +105,7 @@ class CityListActivity:
         presenter.onItemClick(cityName)
     }
 
-    override fun onLongCLick(cityName: String) {
-        presenter.onItemLongClick(cityName)
+    override fun onLongCLick(cityName: String, position: Int) {
+        presenter.onItemLongClick(cityName, position)
     }
 }

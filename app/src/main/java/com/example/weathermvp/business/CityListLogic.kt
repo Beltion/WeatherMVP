@@ -8,7 +8,7 @@ import java.util.ArrayList
 interface CityListPresenter : BasePresenter {
     fun initV(v: CityListView)
     fun onItemClick(cityName: String)
-    fun onItemLongClick(cityName: String)
+    fun onItemLongClick(cityName: String, position: Int)
 }
 
 interface CityListView : BaseVIew {
@@ -18,4 +18,6 @@ interface CityListView : BaseVIew {
     fun startAddCityActivity()
     fun getRoomDbDao(): CityDAO
     fun initWeathersList(citiesWeather: ArrayList<DayWeather>)
+    fun addRvDayWeatherItem(weather: DayWeather)
+    fun removeRvDayWeatherItem(position: Int)
 }

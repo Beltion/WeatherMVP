@@ -63,7 +63,6 @@ class AddCityPresenterImpl : AddCityPresenter {
                 } catch (e: Exception){
                     e.printStackTrace()
                 }
-
             } else {
                 v.showToast(
                         v.getStringFromID(R.string.input_city_name)

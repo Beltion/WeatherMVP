@@ -11,7 +11,7 @@ import java.lang.reflect.Type
 class CityListModel {
 
     suspend fun deleteCity(cityName: String, roomDbDao: CityDAO) {
-
+        CityRoomRepository(cityDAO = roomDbDao).deleteCity(cityName)
     }
 
     suspend fun getCities(roomDbDao: CityDAO): ArrayList<City> {

@@ -29,12 +29,13 @@ class CityListPresenterImpl : CityListPresenter {
         Log.d(TAG, "onItemClick")
     }
 
-    override fun onItemLongClick(cityName: String) {
+    override fun onItemLongClick(cityName: String, position: Int) {
         view?.get()?.let { v ->
             scopeMain.launch {
                 withContext(scopeIO.coroutineContext){
                     model.deleteCity(cityName, v.getRoomDbDao())
                 }
+                v.removeRvDayWeatherItem(position)
             }
 
         }
