@@ -6,6 +6,7 @@ import com.example.weathermvp.business.CityListPresenter
 import com.example.weathermvp.business.CityListView
 import com.example.weathermvp.data.entities.DayWeather
 import com.example.weathermvp.data.entities.DayWeatherApiResultWrapper
+import com.example.weathermvp.framework.room.CityDAO
 import kotlinx.coroutines.*
 import java.lang.ref.WeakReference
 
@@ -36,6 +37,11 @@ class CityListPresenterImpl : CityListPresenter {
                     model.deleteCity(cityName, v.getRoomDbDao())
                 }
                 v.removeRvDayWeatherItem(position)
+                val cities = withContext(scopeIO.coroutineContext){
+                    model.getCities(v.getRoomDbDao())
+                }
+                Log.d(TAG, "Room items size: ${cities.size}")
+                if (cities.size == 0) v.startAddCityActivity()
             }
 
         }
@@ -51,7 +57,6 @@ class CityListPresenterImpl : CityListPresenter {
                 cities.forEach {
                     Log.d(TAG, it.city)
                 }
-
                 if (cities.size > 0){
                     val citiesWeatherResult = withContext(scopeIO.coroutineContext){
                         model.getCitiesWeather(cities)
@@ -59,7 +64,7 @@ class CityListPresenterImpl : CityListPresenter {
                     Log.d(TAG, "After load weathers")
                     val citiesWeather = ArrayList<DayWeather>()
 
-//                    I used this flag for check error in load cities weather
+//                    I used this flags for check error in load cities weather
 //                    and if error was I check load something or all requests was with error
                     var somethingWrong = false
                     var somethingSuccess = false
@@ -90,6 +95,7 @@ class CityListPresenterImpl : CityListPresenter {
                         v.showToast(v.getStringFromID(R.string.not_load))
                     }
                 }else{
+                    Log.d(TAG, "No cities. Start AddCityActivity")
                     v.startAddCityActivity()
                 }
                 Log.d(TAG, "Before show content")
@@ -97,4 +103,5 @@ class CityListPresenterImpl : CityListPresenter {
             }
         }
     }
+
 }

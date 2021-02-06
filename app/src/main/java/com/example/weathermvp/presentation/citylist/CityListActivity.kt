@@ -57,6 +57,7 @@ class CityListActivity:
     override fun startAddCityActivity() {
         val intent = Intent(this, AddCityActivity::class.java)
         startActivity(intent)
+        finish()
     }
 
     override fun getRoomDbDao(): CityDAO
