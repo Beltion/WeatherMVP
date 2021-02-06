@@ -11,7 +11,7 @@
 <!--    Http error user answers-->
     <string name="http404">Заданный город не найден</string>
     <string name="http408">Истекло время ожидания запроса, попробуйте его повторить </string>
-    <string name="http500">Заданный город не найден</string>
+    <string name="http500">Не удалось выполнить запрос попробуйте ещё раз</string>
     <string name="http503">По техническим причинам сервер сейчас недоступен. Приносим свои извинения</string>
 
 </resources>
