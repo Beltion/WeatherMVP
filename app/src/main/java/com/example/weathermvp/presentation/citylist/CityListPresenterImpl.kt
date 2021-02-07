@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.weathermvp.R
 import com.example.weathermvp.business.CityListPresenter
 import com.example.weathermvp.business.CityListView
+import com.example.weathermvp.business.HttpErrorStrCoder
 import com.example.weathermvp.data.entities.DayWeather
 import com.example.weathermvp.data.entities.DayWeatherApiResultWrapper
 import com.example.weathermvp.framework.room.City
@@ -59,6 +60,29 @@ class CityListPresenterImpl : CityListPresenter {
                 if (notSaved){
                     Log.d(TAG, "City from AddDialog may be saved")
                     v.hideContent()
+                    val city = City(cityName)
+                    withContext(scopeIO.coroutineContext){model.saveCity(city, v.getRoomDbDao())}
+                    val weatherResult = withContext(scopeIO.coroutineContext){model.getWeather(cityName)}
+
+                    when(weatherResult){
+                        is DayWeatherApiResultWrapper.Success -> {
+                            Log.d(TAG, "Good request $city: ${weatherResult.value.name}")
+                            v.addRvDayWeatherItem(weather = weatherResult.value)
+                        }
+                        is DayWeatherApiResultWrapper.NetworkError -> {
+                            Log.e(TAG, "Network error on get $city")
+                            v.showContent()
+                            v.showToast(v.getStringFromID(R.string.no_ethernet))
+                        }
+                        is DayWeatherApiResultWrapper.Error -> {
+                            Log.e(TAG, "Get $city problem -> Code: ${weatherResult.code} Error: ${weatherResult.mess}")
+                            v.showContent()
+                            v.showToast(
+                                    v.getStringFromID(HttpErrorStrCoder().getHttpErrorStrCode(weatherResult.code))
+                            )
+                        }
+                    }
+
                     Log.d(TAG, "After hide content")
                 } else {
                     Log.d(TAG, "City from AddDialog shouldn't be saved")
