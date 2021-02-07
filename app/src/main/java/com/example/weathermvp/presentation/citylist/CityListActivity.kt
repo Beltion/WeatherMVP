@@ -15,6 +15,7 @@ import com.example.weathermvp.data.entities.DayWeather
 import com.example.weathermvp.framework.room.CityDAO
 import com.example.weathermvp.framework.room.CityRoomDB
 import com.example.weathermvp.presentation.addcity.AddCityActivity
+import com.example.weathermvp.presentation.citylist.adddialog.AddDialogFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.util.ArrayList
 
@@ -57,7 +58,6 @@ class CityListActivity:
     override fun startAddCityActivity() {
         val intent = Intent(this, AddCityActivity::class.java)
         startActivity(intent)
-        finish()
     }
 
     override fun getRoomDbDao(): CityDAO
@@ -76,6 +76,15 @@ class CityListActivity:
         (rvDayWeather.adapter as CityListRvAdapter).removeItem(position)
     }
 
+    override fun showAddDialog(cityName: String?) {
+        val alertDialog = AddDialogFragment()
+        alertDialog.show(supportFragmentManager, "AddDialogFragment show")
+    }
+
+    override fun onDialogStartAddCityWeather(cityName: String) {
+        presenter.onStartAddCityWeather(cityName)
+    }
+
     override fun initViews() {
         content = findViewById(R.id.content_city_list)
         progress = findViewById(R.id.progressbar)
@@ -84,6 +93,9 @@ class CityListActivity:
         rvDayWeather.layoutManager = LinearLayoutManager(applicationContext, RecyclerView.VERTICAL, false)
 
         fabCallAddCity = findViewById(R.id.fab_city_list)
+        fabCallAddCity.setOnClickListener {
+            showAddDialog(null)
+        }
     }
 
     override fun initLogicItem() {

@@ -9,6 +9,7 @@ interface CityListPresenter : BasePresenter {
     fun initV(v: CityListView)
     fun onItemClick(cityName: String)
     fun onItemLongClick(cityName: String, position: Int)
+    fun onStartAddCityWeather(cityName: String)
 }
 
 interface CityListView : BaseVIew {
@@ -20,4 +21,21 @@ interface CityListView : BaseVIew {
     fun initWeathersList(citiesWeather: ArrayList<DayWeather>)
     fun addRvDayWeatherItem(weather: DayWeather)
     fun removeRvDayWeatherItem(position: Int)
+    fun showAddDialog(cityName: String?)
+    fun onDialogStartAddCityWeather(cityName: String)
+}
+
+interface AddDialogPresenter{
+    fun initV(v: AddDialogView)
+    fun onPositiveBtnClick(city: String)
+    fun onDestroy()
+    fun onCancel()
+}
+
+interface AddDialogView{
+    fun showToast(str: String)
+    fun getStringFromID(id: Int): String
+    fun showDialogAgain(city: String)
+    fun startAddCityWeather(city: String)
+
 }

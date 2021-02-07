@@ -6,9 +6,12 @@ import com.example.weathermvp.business.CityListPresenter
 import com.example.weathermvp.business.CityListView
 import com.example.weathermvp.data.entities.DayWeather
 import com.example.weathermvp.data.entities.DayWeatherApiResultWrapper
+import com.example.weathermvp.framework.room.City
 import com.example.weathermvp.framework.room.CityDAO
 import kotlinx.coroutines.*
 import java.lang.ref.WeakReference
+import java.util.*
+import kotlin.collections.ArrayList
 
 class CityListPresenterImpl : CityListPresenter {
 
@@ -45,6 +48,39 @@ class CityListPresenterImpl : CityListPresenter {
             }
 
         }
+    }
+
+    override fun onStartAddCityWeather(cityName: String) {
+        view?.get()?.let { v->
+            scopeMain.launch {
+                val notSaved = withContext(scopeIO.coroutineContext){
+                    isNotSaved(cityName, v.getRoomDbDao())
+                }
+                if (notSaved){
+                    Log.d(TAG, "City from AddDialog may be saved")
+                    v.hideContent()
+                    Log.d(TAG, "After hide content")
+                } else {
+                    Log.d(TAG, "City from AddDialog shouldn't be saved")
+                    v.showToast(v.getStringFromID(R.string.already_saved))
+                    v.showAddDialog(cityName)
+                }
+                v.showContent()
+            }
+        }
+    }
+
+    private suspend fun isNotSaved(cityName: String, roomDbDao: CityDAO): Boolean {
+        val cities: ArrayList<City> = model.getCities(roomDbDao)
+        var notSaved = true
+        val lowerCityName = cityName.toLowerCase(Locale.ROOT)
+        for(city in cities) {
+            if (lowerCityName == city.city.toLowerCase(Locale.ROOT)) {
+                notSaved = false
+                break
+            }
+        }
+        return notSaved
     }
 
     override fun onCreateView() {

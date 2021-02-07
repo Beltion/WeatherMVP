@@ -14,4 +14,7 @@
     <string name="http500">Не удалось выполнить запрос попробуйте ещё раз</string>
     <string name="http503">По техническим причинам сервер сейчас недоступен. Приносим свои извинения</string>
 
+    <string name="city_name">Название города</string>
+    <string name="already_saved">Такой город уже добавлен</string>
+
 </resources>
