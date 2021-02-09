@@ -16,6 +16,7 @@ import com.example.weathermvp.framework.room.CityDAO
 import com.example.weathermvp.framework.room.CityRoomDB
 import com.example.weathermvp.presentation.addcity.AddCityActivity
 import com.example.weathermvp.presentation.citylist.adddialog.AddDialogFragment
+import com.example.weathermvp.presentation.forecast.ForecastActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.util.ArrayList
 
@@ -51,8 +52,10 @@ class CityListActivity:
         Toast.makeText(applicationContext, str, Toast.LENGTH_SHORT).show()
     }
 
-    override fun startForecastActivity() {
-        TODO("Not yet implemented")
+    override fun startForecastActivity(cityName: String) {
+        val intent = Intent(this, ForecastActivity::class.java)
+        intent.putExtra("city", cityName)
+        startActivity(intent)
     }
 
     override fun startAddCityActivity() {

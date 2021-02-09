@@ -32,6 +32,7 @@ class CityListPresenterImpl : CityListPresenter {
 
     override fun onItemClick(cityName: String) {
         Log.d(TAG, "onItemClick")
+        view?.get()?.startForecastActivity(cityName)
     }
 
     override fun onItemLongClick(cityName: String, position: Int) {
