@@ -40,3 +40,13 @@ data class Snow(
 data class Clouds(
         val all: Int
 )
+
+data class CityName(
+        val name: String
+)
+
+data class ForecastList(
+        val weather: Weather,
+        val main: WeatherInDetail,
+        val dt_txt: String
+)
