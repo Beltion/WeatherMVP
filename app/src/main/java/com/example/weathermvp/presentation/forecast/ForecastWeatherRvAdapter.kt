@@ -21,8 +21,10 @@ class ForecastWeatherRvAdapter(
         val feelsLike = itemView.findViewById<MaterialTextView>(R.id.fells_like_tv_forecast_weather_item)
     }
 
-    fun reInitList(newListSet: ArrayList<ForecastListItem>){
-
+    fun reSetList(newListSet: ArrayList<ForecastListItem>){
+        weathers.clear()
+        weathers.addAll(0,newListSet)
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ForecastWeatherVH {
