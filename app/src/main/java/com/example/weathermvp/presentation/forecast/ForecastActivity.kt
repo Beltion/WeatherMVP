@@ -1,5 +1,6 @@
 package com.example.weathermvp.presentation.forecast
 
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
@@ -7,7 +8,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.weathermvp.R
 import com.example.weathermvp.business.ForecastView
 import com.example.weathermvp.data.entities.ForecastWeather
 
@@ -24,7 +27,6 @@ class ForecastActivity:
     private lateinit var weatherInTreeHourRv: RecyclerView
 
     private lateinit var presenter: ForecastPresenterImpl
-    private var city: String? = null
 
 
     override fun onStart() {
@@ -34,6 +36,7 @@ class ForecastActivity:
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.forecast)
         initViews()
     }
 
@@ -57,11 +60,18 @@ class ForecastActivity:
     }
 
     override fun initViews() {
-        TODO("Not yet implemented")
+        content = findViewById(R.id.content_forecast)
+        progressBar =findViewById(R.id.progressbar)
+        daysRv = findViewById(R.id.rv_days_forecast)
+        daysRv.layoutManager = LinearLayoutManager(applicationContext, RecyclerView.HORIZONTAL, false)
+        weatherInTreeHourRv = findViewById(R.id.rv_weather_forecast)
+        weatherInTreeHourRv.layoutManager = LinearLayoutManager(applicationContext, RecyclerView.VERTICAL, false)
     }
 
     override fun initLogicItem() {
-        TODO("Not yet implemented")
+        presenter = ForecastPresenterImpl()
+        presenter.initV(this)
+        presenter.onCreateView()
     }
 
     override fun showContent() {

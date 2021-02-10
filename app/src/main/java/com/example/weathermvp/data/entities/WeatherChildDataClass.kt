@@ -46,7 +46,7 @@ data class CityName(
 )
 
 data class ForecastList(
-        val weather: Weather,
+        val weather: ArrayList<Weather>,
         val main: WeatherInDetail,
         val dt_txt: String
 )
