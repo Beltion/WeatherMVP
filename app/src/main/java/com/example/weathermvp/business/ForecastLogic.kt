@@ -1,5 +1,6 @@
 package com.example.weathermvp.business
 
+import com.example.weathermvp.data.entities.ForecastListItem
 import com.example.weathermvp.data.entities.ForecastWeather
 
 
@@ -10,8 +11,9 @@ interface ForecastPresenter: BasePresenter {
 }
 
 interface ForecastView: BaseVIew {
-    fun setDaysList(days: ArrayList<String>)
-    fun setWeatherInThreeHourList(weatherInThreeHour: ArrayList<ForecastWeather>)
+    fun initDaysRv(days: ArrayList<String>)
+    fun initWeatherInThreeHourRv(weatherInThreeHour: ArrayList<ForecastListItem>)
+    fun setWeatherInThreeHourList(weatherInThreeHour: ArrayList<ForecastListItem>)
     fun getStringFromID(stringID: Int) : String
     fun showToast(str: String)
     fun getParcelableCityName(): String

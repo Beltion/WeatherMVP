@@ -1,6 +1,5 @@
 package com.example.weathermvp.presentation.forecast
 
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
@@ -12,10 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weathermvp.R
 import com.example.weathermvp.business.ForecastView
-import com.example.weathermvp.data.entities.ForecastWeather
+import com.example.weathermvp.data.entities.ForecastListItem
 
 class ForecastActivity:
         ForecastView,
+        ForecastDaysRvAdapter.OnForecastDaysClickListener,
         AppCompatActivity()
 {
 
@@ -40,12 +40,18 @@ class ForecastActivity:
         initViews()
     }
 
-    override fun setDaysList(days: ArrayList<String>) {
-        TODO("Not yet implemented")
+    override fun initDaysRv(days: ArrayList<String>) {
+        val adapter = ForecastDaysRvAdapter(days, this)
+        daysRv.adapter = adapter
     }
 
-    override fun setWeatherInThreeHourList(weatherInThreeHour: ArrayList<ForecastWeather>) {
-        TODO("Not yet implemented")
+    override fun initWeatherInThreeHourRv(weatherInThreeHour: ArrayList<ForecastListItem>) {
+        val adapter = ForecastWeatherRvAdapter(weathers = weatherInThreeHour)
+        weatherInTreeHourRv.adapter = adapter
+    }
+
+    override fun setWeatherInThreeHourList(weatherInThreeHour: ArrayList<ForecastListItem>) {
+        (weatherInTreeHourRv.adapter as ForecastWeatherRvAdapter).reSetList(weatherInThreeHour)
     }
 
     override fun getStringFromID(stringID: Int)
@@ -82,5 +88,9 @@ class ForecastActivity:
     override fun hideContent() {
         content.visibility = View.INVISIBLE
         progressBar.visibility = View.VISIBLE
+    }
+
+    override fun onDayClick(position: Int) {
+        presenter.onDayClick(position)
     }
 }
